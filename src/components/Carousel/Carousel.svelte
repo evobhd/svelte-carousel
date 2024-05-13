@@ -259,8 +259,8 @@
     {#if arrows}
       <slot name="prev"
         showPrevPage={methods.showPrevPage}
-        pagesCount={pagesCount}
-        currentPageIndex={currentPageIndex}
+        pagesCount={data.pagesCount}
+        currentPageIndex={data.currentPageIndex}
       >
         <div class="sc-carousel__arrow-container">
           <Arrow
@@ -290,13 +290,13 @@
         on:swipeFailed={handleSwipeFailed}
         on:swipeThresholdReached={handleSwipeThresholdReached}
         style="
-          transform: translateX({offset}px);
-          transition-duration: {durationMs}ms;
+          transform: translateX({data.offset}px);
+          transition-duration: {data.durationMs}ms;
           transition-timing-function: {timingFunction};
         "
         bind:this={particlesContainer}
       >
-        <slot {loaded} {currentPageIndex}></slot>
+    <slot loaded={data.loaded} currentPageIndex={data.currentPageIndex}></slot>
       </div>
       {#if autoplayProgressVisible}
         <div class="sc-carousel-progress__container">
@@ -307,8 +307,8 @@
     {#if arrows}
       <slot name="next"
         showNextPage={methods.showNextPage}
-        pagesCount={pagesCount}
-        currentPageIndex={currentPageIndex}
+        pagesCount={data.pagesCount}
+        currentPageIndex={data.currentPageIndex}
       >
         <div class="sc-carousel__arrow-container">
           <Arrow
