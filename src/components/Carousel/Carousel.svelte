@@ -32,7 +32,7 @@
 
   const [{ data, progressManager }, methods, service] = createCarousel((key, value) => {
     switcher({
-      'currentPageIndex': () => currentPageIndex = value,
+      'currentPageIndex': () =>  currentPageIndex = value,
       'progressValue': () => progressValue = value,
       'offset': () => offset = value,
       'durationMs': () => durationMs = value,
@@ -189,8 +189,7 @@
     })
   }
 
-  onMount(() => {
-    (async () => {
+  onMount(async () => {
       await tick()
       if (particlesContainer && pageWindowElement) {
         data.particlesCountWithoutClones = particlesContainer.children.length
@@ -205,7 +204,6 @@
 
         pageWindowElementResizeObserver.observe(pageWindowElement);
       }
-    })()
   })
 
   onDestroy(() => {
@@ -259,8 +257,8 @@
     {#if arrows}
       <slot name="prev"
         showPrevPage={methods.showPrevPage}
-        pagesCount={data.pagesCount}
-        currentPageIndex={data.currentPageIndex}
+        pagesCount={pagesCount}
+        currentPageIndex={currentPageIndex}
       >
         <div class="sc-carousel__arrow-container">
           <Arrow
@@ -290,13 +288,13 @@
         on:swipeFailed={handleSwipeFailed}
         on:swipeThresholdReached={handleSwipeThresholdReached}
         style="
-          transform: translateX({data.offset}px);
-          transition-duration: {data.durationMs}ms;
+          transform: translateX({offset}px);
+          transition-duration: {durationMs}ms;
           transition-timing-function: {timingFunction};
         "
         bind:this={particlesContainer}
       >
-    <slot loaded={data.loaded} currentPageIndex={data.currentPageIndex}></slot>
+    <slot loaded={loaded} currentPageIndex={currentPageIndex}></slot>
       </div>
       {#if autoplayProgressVisible}
         <div class="sc-carousel-progress__container">
@@ -307,8 +305,8 @@
     {#if arrows}
       <slot name="next"
         showNextPage={methods.showNextPage}
-        pagesCount={data.pagesCount}
-        currentPageIndex={data.currentPageIndex}
+        pagesCount={pagesCount}
+        currentPageIndex={currentPageIndex}
       >
         <div class="sc-carousel__arrow-container">
           <Arrow
